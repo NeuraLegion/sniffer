@@ -23,7 +23,7 @@ fullnameOverride: ""
 
 sniffer:
   image:
-    repository: "ghcr.io/NeuraLegion/sniffer-agent"
+    repository: "ghcr.io/neuralegion/sniffer-agent"
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
