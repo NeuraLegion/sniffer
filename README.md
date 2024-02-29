@@ -7,7 +7,7 @@
 Use the Helm command to install the Sniffer:
 
 ```shell
-helm install oci://ghcr.io/neuralegion/sniffer . -f values.yaml
+helm install sniffer oci://ghcr.io/neuralegion/sniffer -f values.yaml
 ```
 
 ## Override default configuration (using values.yaml)
