@@ -15,12 +15,12 @@ cd ./sniffer-helm
 helm template .
 ```
 
-## Install the agent:
+## Install the sniffer:
 
-Use the Helm command to install the Sniffer agent:
+Use the Helm command to install the Sniffer:
 
 ```shell
-helm install sniffer-agent . -f values.yaml
+helm install sniffer . -f values.yaml
 ```
 
 ## Override default configurations (using values.yaml):
@@ -43,12 +43,12 @@ sniffer:
     ebpf-dns-tracer-enabled: false
 ```
 
-## Uninstall the agent:
+## Uninstall the sniffer:
 
-To remove the Sniffer agent, use the following command:
+To remove the Sniffer, use the following command:
 
 ```shell
-helm uninstall sniffer-agent
+helm uninstall sniffer
 ```
 
 ## License

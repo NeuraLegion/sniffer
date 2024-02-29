@@ -1,5 +1,5 @@
 apiVersion: v2
-name: sniffer-agent
+name: sniffer
 version: "0.1.0"
 description: The API Traffic Analyzer for Bright
 home: https://brightsec.com/
@@ -13,3 +13,8 @@ keywords:
   - appsec
   - api
 type: application
+sources:
+  - https://github.com/NeuraLegion/sniffer-helm
+maintainers:
+  - name: Artsem Dzerauniuk
+    email: artem.derevnjuk@brightsec.com
