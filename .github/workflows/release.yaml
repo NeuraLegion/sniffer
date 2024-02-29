@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
 
       - name: Set Node.js
         uses: actions/setup-node@v3
@@ -29,7 +29,7 @@ jobs:
       - name: Release a new version
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: Setup Helm
         uses: azure/setup-helm@v4
@@ -37,7 +37,15 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Login to GHCR
-        run: helm registry login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+        run: echo ${{ secrets.GITHUB_TOKEN }} | helm registry login ghcr.io --username ${{ github.actor }} --password-stdin
+
+      - name: Package Chart
+        run: helm package .
+
+      - name: Build Helm repository name
+        run: echo "HELM_REPOSITORY_OWNER=${OWNER,,}" >>${GITHUB_ENV}
+        env:
+          OWNER: ${{ github.repository_owner }}
 
       - name: Push charts to GHCR
-        run: helm push ./sniffer-*.tgz "oci://ghcr.io/${{ github.repository_owner }}/sniffer-chart"
+        run: helm push ./sniffer-*.tgz oci://ghcr.io/${{ env.HELM_REPOSITORY_OWNER }}
