@@ -24,7 +24,7 @@ jobs:
           node-version: 20
 
       - name: Install deps
-        run: npm i -q --no-save @semantic-release/exec @semantic-release/git
+        run: npm i -q --no-save @semantic-release/exec @semantic-release/git conventional-changelog-conventionalcommits
 
       - name: Release a new version
         run: npx semantic-release
