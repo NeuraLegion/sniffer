@@ -2,28 +2,15 @@
 
 [Helm](https://helm.sh/) must be installed to use the charts. Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 
-## Clone the repository:
-
-```shell
-git clone git@github.com:NeuraLegion/sniffer-chart.git --depth 1
-cd ./sniffer-chart
-```
-
-## Render the Helm templates:
-
-```shell
-helm template .
-```
-
-## Install the sniffer:
+## Install the sniffer
 
 Use the Helm command to install the Sniffer:
 
 ```shell
-helm install sniffer . -f values.yaml
+helm install oci://ghcr.io/neuralegion/sniffer . -f values.yaml
 ```
 
-## Override default configurations (using values.yaml):
+## Override default configuration (using values.yaml)
 
 To customize configurations, modify the `values.yaml` file as follows:
 
@@ -32,23 +19,14 @@ api:
   apiKey: '<your API key with entry-points:manage or entry-points:admin scopes>'
   apiURL: 'https://app.brightsec.com/'
   projectID: '<your Bright project ID>'
-
-sniffer:
-  image:
-    pullPolicy: Always
-
-  extraArgs:
-    group-public-ips: true
-    send-traffic-delta: true
-    ebpf-dns-tracer-enabled: false
 ```
 
-## Uninstall the sniffer:
+## Uninstall the sniffer
 
-To remove the Sniffer, use the following command:
+If you want to delete the Sniffer from your Kubernetes cluster, use the following command:
 
 ```shell
-helm uninstall sniffer
+helm delete sniffer
 ```
 
 ## License
