@@ -1,4 +1,4 @@
-# Default values for sniffer-agent.
+# Default values for sniffer.
 # Declare variables to be passed into your templates.
 
 # API configuration.

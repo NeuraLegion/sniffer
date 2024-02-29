@@ -40,4 +40,4 @@ jobs:
         run: helm registry login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push charts to GHCR
-        run: helm push sniffer-chart oci://ghcr.io/${GITHUB_REPOSITORY_OWNER}
+        run: helm push ./sniffer-*.tgz "oci://ghcr.io/${{ github.repository_owner }}/sniffer-chart"
