@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "bright.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "bright.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "bright.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: bright-sniffer-agent
+        {{- include "bright.selectorLabels" . | nindent 8 }}
+        {{- with .Values.sniffer.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- if .Values.sniffer.priorityClassName }}
+      priorityClassName: {{ .Values.sniffer.priorityClassName }}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      hostNetwork: true
+      dnsPolicy: {{ .Values.sniffer.dnsPolicy }}
+      containers:
+        - name: sniffer-agent
+          image: "{{ .Values.sniffer.image.repository }}:{{ .Values.sniffer.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.sniffer.image.pullPolicy }}
+          resources:
+            {{- toYaml .Values.sniffer.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.sniffer.containerSecurityContext | nindent 12 }}
+          args:
+            - "-a={{.Values.api.apiURL}}"
+            - "-p={{.Values.api.projectID}}"
+            - "-t={{.Values.api.apiKey}}"
+            {{- range $key, $value := .Values.sniffer.extraArgs }}
+            - "-{{ $key }}={{ $value }}"
+            {{- end }}
+      {{- with .Values.sniffer.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.sniffer.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.sniffer.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
