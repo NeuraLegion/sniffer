@@ -1,0 +1,15 @@
+apiVersion: v2
+name: sniffer-agent
+version: "0.1.0"
+description: The API Traffic Analyzer for Bright
+home: https://brightsec.com/
+keywords:
+  - bright
+  - packet capture
+  - traffic capture
+  - traffic analyzer
+  - network sniffer
+  - devops
+  - appsec
+  - api
+type: application

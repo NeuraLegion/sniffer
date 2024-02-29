@@ -1,0 +1,65 @@
+# Default values for sniffer-agent.
+# Declare variables to be passed into your templates.
+
+# API configuration.
+api:
+  # Token to be used for authorizing agent access to the Bright API
+  apiKey: ""
+
+  # Name of secret with Token to be used for authorizing agent access to the API
+  # apiKey and apiKeySecretRef are mutually exclusive
+  # The referenced secret must provide the token in .data["API_KEY"]
+  apiKeySecretRef: ""
+
+  # Bright public api url.
+  apiURL: "https://app.brightsec.com/"
+
+  # Bright Project ID.
+  projectID: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+sniffer:
+  image:
+    repository: "ghcr.io/NeuraLegion/sniffer-agent"
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+
+  ## The name of the PriorityClass for pods
+  priorityClassName: "system-node-critical"
+
+  ## Labels to be added to pod
+  podLabels: { }
+
+  podSecurityContext: { }
+
+  containerSecurityContext:
+    capabilities:
+      add:
+        - NET_RAW
+        - NET_ADMIN
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      memory: 1Gi
+
+  nodeSelector: { }
+
+  tolerations:
+    - effect: NoExecute
+      operator: Exists
+    - effect: NoSchedule
+      operator: Exists
+
+  affinity: { }
+
+  dnsPolicy: ClusterFirstWithHostNet
+
+  # Extra args for sniffer-agent container.
+  extraArgs:
