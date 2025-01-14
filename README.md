@@ -1,3 +1,14 @@
+# ⚠️ Repository Deprecation Notice
+This repository is deprecated and no longer actively maintained.
+Status
+
+ - ⛔ No further development
+ - ⛔ No bug fixes
+ - ⛔ No new features
+ - ⛔ No pull requests will be reviewed or merged
+
+ ------------------------------------------------------------------------
+
 # Helm Chart for Bright Sniffer
 
 [Helm](https://helm.sh/) must be installed to use the charts. Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
